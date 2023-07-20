@@ -2,6 +2,7 @@ const ErrorHandler = require("./middlewares/error");
 const express = require("express");
 const cors=require("cors")
 const User = require("./routes/userRoute");
+const Task = require("./routes/taskRoute");
 
 const cookie = require("cookie-parser");
 const app = express();
@@ -21,6 +22,8 @@ const { swaggerServe, swaggerSetup } = require('./config/swagger')
 app.use("/api-docs", swaggerServe, swaggerSetup); 
 
 app.use("/api/v1/user", User);
+app.use("/api/v1/task", Task);
+
 
 //error handle middleware
 app.use(ErrorHandler);

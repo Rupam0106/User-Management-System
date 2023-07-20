@@ -9,19 +9,32 @@ const taskSchema = new mongoose.Schema(
     },
     description: {
       type: String,
-      required: [true, "Please Enter Description of the Product"],
+      required: [true, "Please Enter Description of the Task"],
       trim: true,
     },
-    productImage: {
+    taskType: {
       type: String,
-      required: [true, "Please Provide Product Image"],
+      required: [true, "Please Enter the Task Type"],
+      trim: true,
     },
-    deletedAt: {
-      type: Date,
-      default: null,
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
+    comments: [
+      {
+        user: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+        comment: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Task", productSchema);
+module.exports = mongoose.model("Task", taskSchema);

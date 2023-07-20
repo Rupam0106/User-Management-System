@@ -13,6 +13,7 @@ const {
   HTTP_OK,
   HTTP_PAGE_NOT_FOUND,
 } = require("../constants/http_status");
+const taskModel = require("../models/taskModel");
 
 //register User
 exports.registerUser = catchAsyncError(async (req, res, next) => {
@@ -152,11 +153,12 @@ exports.resetPassword = catchAsyncError(async (req, res, next) => {
 
 // get user details
 exports.getUserDetails = catchAsyncError(async (req, res) => {
-  const user = await userModel.findById(req.user.id);
-
+  const task = await taskModel
+    .findOne({ userId: req.user.id })
+    .populate("userId");
   res.status(HTTP_OK).json({
     success: true,
-    user,
+    task,
   });
 });
 
